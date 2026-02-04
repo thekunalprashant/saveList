@@ -5,12 +5,15 @@
     left: 0;
     top: 0;
     background: var(--surface);
+    /* Cream Raised */
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     padding: 24px;
     transition: var(--transition);
     z-index: 100;
+    box-shadow: 20px 0 30px rgba(58, 58, 10, 0.02);
+    /* Very subtle depth from yellow bg */
 }
 
 @media (max-width: 1024px) {
@@ -25,7 +28,7 @@
     gap: 12px;
     font-size: 20px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--foreground);
     margin-bottom: 40px;
     font-family: var(--font-heading);
 }
@@ -44,19 +47,25 @@
     padding: 12px 16px;
     border-radius: var(--radius-md);
     color: var(--secondary);
-    font-weight: 500;
+    font-weight: 600;
     transition: var(--transition);
+    border: 1px solid transparent;
 }
 
 .navLink:hover {
     background: var(--surface-hover);
     color: var(--foreground);
+    box-shadow: var(--shadow-neu-flat);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .active {
-    background: var(--primary-hover);
-    color: white !important;
-    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+    background: var(--surface-pressed);
+    /* Dark Yellow Pressed */
+    color: var(--foreground) !important;
+    box-shadow: var(--shadow-neu-pressed);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .userSection {

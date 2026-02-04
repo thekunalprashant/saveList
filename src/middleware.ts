@@ -11,7 +11,8 @@ export default NextAuth(authConfig).auth((req) => {
         req.nextUrl.pathname.startsWith("/api") ||
         req.nextUrl.pathname.startsWith("/about") ||
         req.nextUrl.pathname.startsWith("/privacy") ||
-        req.nextUrl.pathname.startsWith("/terms");
+        req.nextUrl.pathname.startsWith("/terms") ||
+        req.nextUrl.pathname.startsWith("/contact");
 
 
 

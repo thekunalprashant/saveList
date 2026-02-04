@@ -1,0 +1,107 @@
+/* Shared Neumorphic Styles for Legal/Content Pages */
+.page {
+    min-height: 100vh;
+    background: var(--background);
+    padding-top: 100px;
+    /* Space for fixed navbar */
+    padding-bottom: 60px;
+    font-family: var(--font-inter);
+    color: var(--foreground);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 40px;
+    /* Big smooth corners */
+    padding: 60px;
+    margin-bottom: 40px;
+    /* Soft Neumorphic Lift */
+    box-shadow: var(--shadow-neu-flat);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 32px 24px;
+        border-radius: 24px;
+    }
+}
+
+.title {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--foreground);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: var(--secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content {
+    line-height: 1.8;
+    color: var(--foreground);
+    font-size: 16px;
+}
+
+.content h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.content p {
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+.content ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+    list-style-type: none;
+}
+
+.content li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 4px;
+}
+
+.content li::before {
+    content: "•";
+    color: var(--primary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

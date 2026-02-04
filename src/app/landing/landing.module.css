@@ -1,7 +1,7 @@
 .landingContainer {
     min-height: 100vh;
-    background: #0f172a;
-    color: white;
+    background: var(--background);
+    color: var(--foreground);
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
 }
@@ -9,19 +9,18 @@
 /* Hero Section */
 .hero {
     position: relative;
-    padding: 140px 20px 80px;
-    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 60%);
-    overflow: visible;
-    /* Allow 3D effect to stick out if needed */
+    padding: 160px 20px 100px;
+    background: var(--background);
+    overflow: hidden;
 }
 
 .heroContent {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 50px;
 }
 
 .heroTextContent {
@@ -31,178 +30,245 @@
 }
 
 .heroTitle {
-    font-size: clamp(48px, 6vw, 72px);
+    font-size: clamp(48px, 6vw, 84px);
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 24px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    color: var(--foreground);
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -1px -1px 2px rgba(229, 216, 74, 0.3);
+    animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .highlight {
-    background: linear-gradient(to right, #818cf8, #c084fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
+    background: transparent;
+    -webkit-text-fill-color: var(--primary);
+    position: relative;
+    display: inline-block;
+    padding: 0 4px;
+}
+
+/* Neumorph Inset Well behind highlight */
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: var(--surface-pressed);
+    box-shadow: var(--shadow-neu-pressed);
+    border-radius: 4px;
+    z-index: -1;
+    opacity: 0.8;
 }
 
 .heroSubtitle {
     font-size: 20px;
-    color: #94a3b8;
-    line-height: 1.6;
-    margin-bottom: 40px;
+    color: var(--secondary);
+    line-height: 1.7;
+    margin-bottom: 56px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    font-weight: 600;
+    animation: fadeIn 1s ease-out 0.3s backwards;
 }
 
 .ctaButtons {
     display: flex;
-    gap: 16px;
+    gap: 32px;
     justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-out 0.6s backwards;
 }
 
+/* Primary CTA - Extruded Neumorph + Glow */
 .primaryCta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    background: #4f46e5;
-    color: white;
-    border-radius: 999px;
-    font-weight: 600;
-    transition: all 0.2s;
-    box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+    gap: 12px;
+    padding: 18px 40px;
+    background: var(--surface);
+    /* Cream Raised */
+    color: var(--primary);
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Bouncy spring */
+    box-shadow: var(--shadow-neu-flat);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    position: relative;
+    overflow: hidden;
 }
 
 .primaryCta:hover {
-    background: #4338ca;
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        15px 15px 30px #d6d35e,
+        -15px -15px 30px #ffffff;
 }
 
+.primaryCta:active {
+    transform: translateY(0) scale(0.98);
+    background: var(--surface-pressed);
+    box-shadow: var(--shadow-neu-pressed);
+}
+
+/* Secondary CTA - Soft Pressed Look */
 .secondaryCta {
     display: inline-flex;
     align-items: center;
-    padding: 14px 28px;
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-    border-radius: 999px;
+    padding: 18px 40px;
+    background: var(--surface);
+    color: var(--secondary);
+    border-radius: var(--radius-lg);
     font-weight: 600;
+    font-size: 16px;
     transition: all 0.2s;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
+    box-shadow: var(--shadow-neu-flat);
 }
 
 .secondaryCta:hover {
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--foreground);
+    transform: translateY(-2px);
+    background: var(--surface-hover);
+}
+
+.secondaryCta:active {
+    box-shadow: var(--shadow-neu-pressed);
+    background: var(--surface-pressed);
+    transform: translateY(0);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Features Section */
 .features {
-    padding: 100px 20px;
+    padding: 120px 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .sectionTitle {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .sectionTitle h2 {
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 800;
-    margin-bottom: 16px;
-    color: white;
+    margin-bottom: 20px;
+    color: var(--foreground);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .sectionTitle p {
-    color: #94a3b8;
+    color: var(--secondary);
     font-size: 18px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .featureGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 48px;
 }
 
+/* Feature Card - Floating Neumorph */
 .featureCard {
-    background: rgba(30, 41, 59, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 32px;
-    border-radius: 16px;
-    transition: transform 0.2s;
+    background: var(--surface);
+    /* Cream Raised */
+    padding: 48px 40px;
+    border-radius: 40px;
+    /* Big smooth corners */
+    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-neu-flat);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .featureCard:hover {
-    transform: translateY(-5px);
-    background: rgba(30, 41, 59, 0.6);
+    transform: translateY(-8px);
+    box-shadow:
+        18px 18px 36px #d6d35e,
+        -18px -18px 36px #ffffff;
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
 .featureIcon {
-    margin-bottom: 24px;
-}
-
-.iconBlue {
-    color: #6366f1;
-}
-
-.iconOrange {
-    color: #f97316;
-}
-
-.iconPurple {
-    color: #c084fc;
-}
-
-.iconGold {
-    color: #facc15;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+    background: var(--background);
+    /* Inset Well for Icon */
+    box-shadow: var(--shadow-neu-pressed);
+    color: var(--primary);
 }
 
 .featureCard h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--foreground);
 }
 
 .featureCard p {
-    color: #94a3b8;
-    line-height: 1.6;
+    color: var(--secondary);
+    line-height: 1.8;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .hero {
-        padding-top: 100px;
-        padding-bottom: 60px;
+        padding: 120px 20px 60px;
     }
 
     .heroTitle {
-        font-size: 40px;
+        font-size: 42px;
     }
 
-    .mockSidebar,
-    .mockGrid {
-        display: none;
-    }
-
-    /* Mobile Fallback for Mock */
-    .dashboardMock {
-        height: auto;
-        aspect-ratio: auto;
-        padding: 20px;
+    .ctaButtons {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        width: 100%;
+        gap: 20px;
     }
 
-    .mockContent {
-        padding: 0;
-    }
-
-    .mockContent::after {
-        content: "Desktop view available on larger screens";
-        color: #64748b;
-        font-size: 14px;
+    .primaryCta,
+    .secondaryCta {
+        width: 100%;
+        justify-content: center;
     }
 }

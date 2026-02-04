@@ -1,0 +1,111 @@
+/* Soft Neumorphic Footer */
+.footer {
+    background: var(--surface);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 60px 20px;
+    margin-top: auto;
+    /* Soft top shadow to separate from content */
+    box-shadow: 0 -10px 40px rgba(163, 177, 198, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.brandColumn h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--foreground);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.brandColumn p {
+    color: var(--secondary);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.column h4 {
+    color: var(--foreground);
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.link {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.link:hover {
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+.bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    /* Very subtle divider */
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.copyright {
+    color: var(--secondary);
+    font-size: 14px;
+}
+
+.social {
+    display: flex;
+    gap: 16px;
+}
+
+.socialLink {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    background: var(--surface);
+    /* Neumorphic Button */
+    box-shadow: var(--shadow-neu-flat);
+    transition: all 0.2s;
+}
+
+.socialLink:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow:
+        6px 6px 12px #d1d9e6,
+        -6px -6px 12px #ffffff;
+}
+
+.socialLink:active {
+    box-shadow: var(--shadow-neu-pressed);
+    transform: translateY(0);
+}

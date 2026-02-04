@@ -208,10 +208,10 @@ export default function SettingsPage() {
                         <Download size={18} />
                         <span>Export Data</span>
                     </button>
-                    <button className={styles.themeBtn} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                    {/* <button className={styles.themeBtn} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                         <Upload size={18} />
                         <span>Import Data</span>
-                    </button>
+                    </button> */}
                 </div>
             </section>
 

@@ -1,65 +1,101 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Colors - Light Mode */
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --surface: #ffffff;
-  --surface-hover: #f1f5f9;
-  --border: #e2e8f0;
-  
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --secondary: #94a3b8;
-  --accent: #f59e0b;
-  
-  --success: #10b981;
-  --error: #ef4444;
-  --warning: #f59e0b;
-  --info: #3b82f6;
+  /* 🎨 Base Background */
+  --background: #FDFA74;
+  /* Warm pastel yellow */
 
-  /* Typography */
+  /* 🧱 Surface Colors */
+  --surface-primary: #FBF68A;
+  /* Slightly deeper than base */
+  --surface: #FFFCCC;
+  /* Raised Surface (Cards, Buttons) - Main UI Element */
+  --surface-raised: #FFFCCC;
+  /* Alias for clarity */
+  --surface-pressed: #F3E859;
+  /* Pressed/Inset Surface */
+  --surface-hover: #FFFFE0;
+  /* Extra light for hover */
+
+  /* 🔤 Text Colors */
+  --foreground: #3A3A0A;
+  /* Dark olive-black */
+  --secondary: #57572A;
+  /* Secondary labels */
+  --text-disabled: #8E8E40;
+
+  /* 🔹 Accent Colors */
+  --primary: #3A7DFB;
+  /* Accent Blue */
+  --primary-hover: #2563eb;
+
+  --warning: #FFA24C;
+  /* Warm Orange */
+  --success: #6EC574;
+  /* Soft Green */
+  --error: #D85A5A;
+  /* Muted Red */
+  --info: #3A7DFB;
+  /* Same as primary blue */
+  --accent: #FFA24C;
+  /* Orange accent */
+
+  --border: rgba(58, 58, 10, 0.1);
+  /* Subtle olive border */
+
+  /* 📏 Typography */
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Manrope', system-ui, -apple-system, sans-serif;
 
-  /* Spacing & Radius */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* 📐 Spacing & Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 9999px;
-  
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* 🕳 Neumorphic Shadows (User Spec) */
+  /* Dark Shadow: #E5D84A */
+  /* Light Shadow: #FFFFB0 */
+
+  /* Raised Element */
+  --shadow-neu-flat:
+    6px 6px 12px #E5D84A,
+    -6px -6px 12px #FFFFB0;
+
+  /* Pressed/Inset Element */
+  --shadow-neu-pressed:
+    inset 4px 4px 8px #E5D84A,
+    inset -4px -4px 8px #FFFFB0;
+
+  --shadow-neu-bumpy:
+    5px 5px 10px #E5D84A,
+    -5px -5px 10px #FFFFB0;
+
+  /* Standard Shadows (Mapped to theme colors) */
+  --shadow-sm: 0 2px 4px rgba(58, 58, 10, 0.05);
+  --shadow-md: 0 4px 6px rgba(58, 58, 10, 0.05);
+  --shadow-lg: 0 10px 15px rgba(58, 58, 10, 0.05);
 
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Dark Mode Override - Backup just in case */
 [data-theme='dark'] {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  --background: #1e293b;
+  --foreground: #f1f5f9;
   --surface: #1e293b;
+  --surface-raised: #1e293b;
+  --surface-pressed: #0f172a;
   --surface-hover: #334155;
-  --border: #334155;
-  
-  --primary: #818cf8;
-  --primary-hover: #6366f1;
-  --secondary: #64748b;
-  
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.7);
-}
+  --border: rgba(255, 255, 255, 0.05);
 
-[data-theme='amoled'] {
-  --background: #000000;
-  --foreground: #ffffff;
-  --surface: #121212;
-  --surface-hover: #1a1a1a;
-  --border: #222222;
-  
-  --primary: #818cf8;
-  --primary-hover: #6366f1;
-  --secondary: #4a4a4a;
+  --primary: #3A7DFB;
+  --primary-hover: #2563eb;
+  --secondary: #94a3b8;
+
+  --shadow-neu-flat: 5px 5px 10px #0f172a, -5px -5px 10px #334155;
+  --shadow-neu-pressed: inset 5px 5px 10px #0f172a, inset -5px -5px 10px #334155;
 }
 
 * {
@@ -86,9 +122,20 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
+  color: var(--foreground);
 }
 
 button {
@@ -105,33 +152,24 @@ a {
   transition: var(--transition);
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
   outline: none;
 }
 
-/* Scrollbar Styles */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary);
-}
-
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
@@ -144,17 +182,3 @@ input, textarea, select {
   margin: 0 auto;
   padding: 0 20px;
 }
-
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-[data-theme='dark'] .glass,
-[data-theme='amoled'] .glass {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-

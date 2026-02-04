@@ -1,7 +1,8 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 32px;
+    padding-bottom: 40px;
 }
 
 @media (max-width: 768px) {
@@ -11,12 +12,14 @@
 }
 
 .header {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .header h1 {
     font-size: 32px;
     margin-bottom: 8px;
+    color: var(--foreground);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .header p {
@@ -25,16 +28,18 @@
 
 .card {
     background: var(--surface);
-    border: 1px solid var(--border);
+    /* Cream Raised */
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: var(--radius-lg);
     padding: 24px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-neu-flat);
     transition: var(--transition);
 }
 
 .card:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-neu-bumpy);
     transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .cardHeader {
@@ -49,13 +54,14 @@
     align-items: center;
     gap: 12px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--foreground);
 }
 
 .cardAction {
     color: var(--primary);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .taskList {
@@ -67,33 +73,45 @@
 .taskItem {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
+    gap: 16px;
+    padding: 16px;
     border-radius: var(--radius-md);
-    background: var(--background);
-    border: 1px solid transparent;
+    background: var(--surface-pressed);
+    /* Dark Yellow Well */
+    /* Inset Well + Border */
+    box-shadow: var(--shadow-neu-pressed);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: var(--transition);
 }
 
 .taskItem:hover {
-    border-color: var(--border);
+    border-color: rgba(255, 255, 255, 0.4);
+    background: #e9de50;
+    /* Slightly darker pressed on hover */
 }
 
 .taskCheckbox {
-    width: 20px;
-    height: 20px;
-    border-radius: var(--radius-sm);
-    border: 2px solid var(--border);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    /* Lift checkbox up from the inset well - Raised Button */
+    background: var(--surface);
+    box-shadow: var(--shadow-neu-flat);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--secondary);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     transition: var(--transition);
+    margin-right: 4px;
+    cursor: pointer;
 }
 
 .taskCheckbox.checked {
-    background: var(--success);
-    border-color: var(--success);
+    background: var(--surface-pressed);
+    box-shadow: var(--shadow-neu-pressed);
+    border-color: transparent;
+    color: var(--success);
 }
 
 .taskInfo {
@@ -107,7 +125,67 @@
 
 .taskTitle.completed {
     text-decoration: line-through;
+    color: var(--text-disabled);
+    opacity: 0.6;
+}
+
+.taskTimer {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 600;
     color: var(--secondary);
+    background: var(--surface-hover);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+}
+
+.timerActive {
+    color: var(--primary);
+    background: rgba(58, 125, 251, 0.1);
+}
+
+.timerControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.timerBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    transition: var(--transition);
+}
+
+.timerBtn:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.timerBtn.active {
+    color: var(--primary);
+}
+
+.watchlistActionBtn {
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--secondary);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.watchlistActionBtn:hover {
+    color: var(--success);
+    border-color: var(--success);
+    transform: scale(1.1);
 }
 
 .goalPreview {

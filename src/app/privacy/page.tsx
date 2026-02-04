@@ -2,36 +2,46 @@
 
 import LandingNav from "@/components/layout/LandingNav";
 import Footer from "@/components/layout/Footer";
+import styles from "../legal.module.css";
 
 export default function PrivacyPage() {
     return (
-        <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white', fontFamily: 'var(--font-inter)' }}>
+        <div className={styles.page}>
             <LandingNav />
-            <main style={{ maxWidth: '800px', margin: '0 auto', padding: '120px 20px 80px' }}>
-                <h1 style={{ fontSize: '40px', fontWeight: '800', marginBottom: '40px' }}>Privacy Policy</h1>
-                <div style={{ color: '#cbd5e1', lineHeight: '1.8', display: 'flex', flexDirection: 'column', gap: '32px' }}>
 
-                    <section>
-                        <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '16px', color: 'white' }}>1. Information We Collect</h2>
-                        <p>We collect information you provide directly to us when you create an account, such as your name, email address, and profile picture from authentication providers (Google/GitHub).</p>
-                    </section>
+            <div className={styles.container}>
+                <div className={styles.card}>
+                    <h1 className={styles.title}>Privacy Policy</h1>
+                    <p className={styles.subtitle}>Last updated: February 4, 2026</p>
 
-                    <section>
-                        <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '16px', color: 'white' }}>2. How We Use Your Information</h2>
-                        <p>We use the information we collect to provide, maintain, and improve our services, to develop new ones, and to protect SaveList and our users.</p>
-                    </section>
+                    <div className={styles.content}>
+                        <p>
+                            Your privacy is important to us. It is SaveList's policy to respect your privacy regarding
+                            any information we may collect from you across our website.
+                        </p>
 
-                    <section>
-                        <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '16px', color: 'white' }}>3. Data Storage</h2>
-                        <p>Your task, goal, and watchlist data is stored securely in our database. We do not share your personal data with third parties for marketing purposes.</p>
-                    </section>
+                        <h2>1. Information We Collect</h2>
+                        <p>
+                            We only ask for personal information when we truly need it to provide a service to you.
+                            We collect it by fair and lawful means, with your knowledge and consent.
+                            Typically, this includes your name and email address when you sign in via GitHub or Google.
+                        </p>
 
-                    <section>
-                        <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '16px', color: 'white' }}>4. Cookies</h2>
-                        <p>We use cookies to maintain your login session and preferences. By using our website, you agree to the use of cookies.</p>
-                    </section>
+                        <h2>2. How We Use It</h2>
+                        <p>
+                            We use your information to providing you with the SaveList dashboard experience,
+                            syncing your tasks and goals across devices, and authenticating your session.
+                        </p>
+
+                        <h2>3. Data Storage</h2>
+                        <p>
+                            We only retain collected information for as long as necessary to provide you with your requested service.
+                            What data we store, we'll protect within commercially acceptable means to prevent loss and theft.
+                        </p>
+                    </div>
                 </div>
-            </main>
+            </div>
+
             <Footer />
         </div>
     );

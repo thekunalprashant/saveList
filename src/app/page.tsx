@@ -18,6 +18,32 @@ import { clsx } from "clsx";
 import Link from "next/link";
 import { useStore } from "@/store/useStore";
 import { formatRelativeTime } from "@/utils/dateFormat";
+import { Play, Pause } from "lucide-react";
+
+const formatTime = (ms: number) => {
+  const seconds = Math.floor((ms / 1000) % 60);
+  const minutes = Math.floor((ms / (1000 * 60)) % 60);
+  const hours = Math.floor((ms / (1000 * 60 * 60)));
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+};
+
+const TimerDisplay = ({ startTime, accumulatedTime, status }: { startTime?: string, accumulatedTime: number, status: string }) => {
+  const [elapsed, setElapsed] = useState(accumulatedTime);
+
+  useEffect(() => {
+    if (status === 'running' && startTime) {
+      const start = new Date(startTime).getTime();
+      const interval = setInterval(() => {
+        setElapsed(accumulatedTime + (Date.now() - start));
+      }, 1000);
+      return () => clearInterval(interval);
+    } else {
+      setElapsed(accumulatedTime);
+    }
+  }, [status, startTime, accumulatedTime]);
+
+  return <span>{formatTime(elapsed)}</span>;
+};
 
 export default function Dashboard() {
   const { data: session } = useSession();
@@ -29,6 +55,8 @@ export default function Dashboard() {
     fetchGoals,
     fetchWatchlist,
     updateWatchlistItem,
+    updateTask,
+    toggleTimer,
     loading: storeLoading
   } = useStore();
 
@@ -115,11 +143,37 @@ export default function Dashboard() {
           <div className={styles.taskList}>
             {loading ? <p>Loading...</p> : dashboardData.tasks.length > 0 ? dashboardData.tasks.map((task: any) => (
               <div key={task._id} className={styles.taskItem}>
-                <div className={styles.taskCheckbox}>
-                  {/* Just a visual for dashboard */}
+                <div
+                  className={clsx(styles.taskCheckbox, task.status === 'completed' && styles.checked)}
+                  onClick={() => updateTask(task._id, { status: 'completed' })}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {task.status === 'completed' && <Check size={16} strokeWidth={3} />}
                 </div>
                 <div className={styles.taskInfo}>
-                  <p className={styles.taskTitle}>{task.title}</p>
+                  <p className={clsx(styles.taskTitle, task.status === 'completed' && styles.completed)}>{task.title}</p>
+                </div>
+
+                <div className={clsx(styles.taskTimer, task.timerStatus === 'running' && styles.timerActive)}>
+                  <TimerDisplay
+                    startTime={task.startTime}
+                    accumulatedTime={task.accumulatedTime || 0}
+                    status={task.timerStatus || 'idle'}
+                  />
+                </div>
+
+                <div className={styles.timerControls}>
+                  <button
+                    className={clsx(styles.timerBtn, task.timerStatus === 'running' && styles.active)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleTimer(task._id);
+                    }}
+                    title={task.timerStatus === 'running' ? "Pause" : "Start"}
+                  >
+                    {task.timerStatus === 'running' ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}
+                  </button>
                 </div>
               </div>
             )) : <p className={styles.description}>No pending tasks!</p>}
@@ -178,18 +232,7 @@ export default function Dashboard() {
                 </div>
                 <button
                   onClick={() => updateWatchlistItem(item._id, { status: 'finished' })}
-                  style={{
-                    padding: '8px',
-                    borderRadius: 'var(--radius-sm)',
-                    background: 'var(--surface)',
-                    color: 'var(--success)',
-                    border: '1px solid var(--border)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.2s ease'
-                  }}
+                  className={styles.watchlistActionBtn}
                   title="Mark as watched"
                 >
                   <Check size={16} />
@@ -204,29 +247,69 @@ export default function Dashboard() {
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>
               <TrendingUp size={20} color="var(--success)" />
-              <span>Weekly Momentum</span>
+              <span>Weekly Task Completions</span>
             </div>
           </div>
-          <div style={{ height: '100px', display: 'flex', alignItems: 'flex-end', gap: '8px', paddingBottom: '8px' }}>
-            {analytics?.weeklycompletions.map((val: number, i: number) => {
-              const max = Math.max(...analytics!.weeklycompletions, 1);
-              const height = (val / max) * 100;
-              return (
-                <div
-                  key={i}
-                  style={{
-                    flex: 1,
-                    height: `${height}%`,
-                    background: i === 6 ? 'var(--primary)' : 'var(--surface-hover)',
-                    borderRadius: 'var(--radius-sm)',
-                    transition: 'height 1s ease'
-                  }}
-                />
-              );
-            }) || [20, 20, 20, 20, 20, 20, 20].map((v, i) => <div key={i} style={{ flex: 1, height: '20%', background: 'var(--surface-hover)', borderRadius: 'var(--radius-sm)' }} />)}
+
+          {/* Chart Container */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {/* Bars */}
+            <div style={{ height: '100px', display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
+              {analytics?.weeklycompletions ? analytics.weeklycompletions.map((val: number, i: number) => {
+                const max = Math.max(...analytics.weeklycompletions, 5); // Minimum scale of 5 to avoid flat charts
+                const height = Math.max((val / max) * 100, 10); // Min height 10%
+                return (
+                  <div
+                    key={i}
+                    title={`${val} tasks completed`}
+                    style={{
+                      flex: 1,
+                      height: `${height}%`,
+                      background: i === 6 ? 'var(--primary)' : 'var(--surface-pressed)',
+                      borderRadius: '4px',
+                      transition: 'height 1s ease',
+                      position: 'relative',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-end',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {val > 0 && (
+                      <span style={{
+                        fontSize: '10px',
+                        fontWeight: '700',
+                        marginBottom: '4px',
+                        color: 'var(--foreground)',
+                        position: 'absolute',
+                        top: '-18px'
+                      }}>
+                        {val}
+                      </span>
+                    )}
+                  </div>
+                );
+              }) : Array.from({ length: 7 }).map((_, i) => (
+                <div key={i} style={{ flex: 1, height: '10%', background: 'var(--surface-pressed)', borderRadius: '4px', opacity: 0.5 }} />
+              ))}
+            </div>
+
+            {/* Day Labels */}
+            <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid var(--border)', paddingTop: '8px' }}>
+              {Array.from({ length: 7 }).map((_, i) => {
+                const d = new Date();
+                d.setDate(d.getDate() - (6 - i));
+                return (
+                  <div key={i} style={{ flex: 1, textAlign: 'center', fontSize: '10px', color: 'var(--secondary)', fontWeight: '600' }}>
+                    {d.toLocaleDateString('en-US', { weekday: 'narrow' })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <p style={{ fontSize: '12px', color: 'var(--secondary)', marginTop: '12px', textAlign: 'center' }}>
-            {analytics?.stats?.totalActionsLastWeek || 0} actions recorded this week.
+
+          <p style={{ fontSize: '12px', color: 'var(--secondary)', marginTop: '24px', textAlign: 'center' }}>
+            Tasks completed over the last 7 days.
           </p>
         </div>
       </div>
