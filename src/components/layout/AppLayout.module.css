@@ -1,0 +1,55 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+    padding-left: 260px;
+    /* Sidebar width */
+    min-height: 100vh;
+    background: var(--background);
+    transition: var(--transition);
+}
+
+.content {
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: var(--background);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 999px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1024px) {
+    .main {
+        padding-left: 0;
+        padding-bottom: 64px;
+        /* BottomNav height */
+    }
+
+    .content {
+        padding: 24px 20px;
+    }
+}

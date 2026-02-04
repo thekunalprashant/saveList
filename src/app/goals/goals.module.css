@@ -1,0 +1,295 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.goalInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.emoji {
+    font-size: 32px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-hover);
+    border-radius: var(--radius-md);
+}
+
+.goalTitle {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.description {
+    font-size: 14px;
+    color: var(--secondary);
+    line-height: 1.5;
+}
+
+.priorityBadge {
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.priority-high {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.priority-medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.priority-low {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.progressSection {
+    margin-bottom: 24px;
+}
+
+.progressLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.progressBar {
+    width: 100%;
+    height: 10px;
+    background: var(--border);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subtasks {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.subtaskItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    background: var(--background);
+    transition: var(--transition);
+}
+
+.subtaskItem:hover {
+    background: var(--surface-hover);
+}
+
+.subtaskCheckbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: var(--transition);
+}
+
+.subtaskCheckbox.checked {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.subtaskTitle {
+    font-size: 14px;
+    flex: 1;
+}
+
+.subtaskTitle.checked {
+    text-decoration: line-through;
+    color: var(--secondary);
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.actionBtn {
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    color: var(--secondary);
+    transition: var(--transition);
+}
+
+.actionBtn:hover {
+    color: var(--foreground);
+    background: var(--surface-hover);
+}
+
+.deleteBtn:hover {
+    color: var(--error);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.addSubtaskBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.addSubtaskBtn:hover {
+    background: var(--surface-hover);
+}
+
+.inlineSubtaskForm {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    animation: slideDown 0.2s ease-out;
+}
+
+.inlineInput {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--background);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--foreground);
+}
+
+.inlineInput:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.subtaskRemoveBtn {
+    opacity: 0;
+    color: var(--secondary);
+    transition: var(--transition);
+}
+
+.subtaskItem:hover .subtaskRemoveBtn {
+    opacity: 1;
+}
+
+.subtaskRemoveBtn:hover {
+    color: var(--error);
+}
+
+.empty {
+    text-align: center;
+    padding: 64px 0;
+    color: var(--secondary);
+}
+
+.empty svg {
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* Modal-like form for adding goals */
+.addForm {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-md);
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--secondary);
+}
+
+.input,
+.textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    background: var(--background);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+}
+
+.input:focus,
+.textarea:focus {
+    border-color: var(--primary);
+}
